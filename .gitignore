@@ -1,0 +1,39 @@
+node_modules/
+dist/
+contracts/managed/
+deployments/
+test-results/
+midnight-local-dev/
+midnight-level-db/
+*.js
+*.d.ts
+*.js.map
+.DS_Store
+
+# Assets
+assets/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.mp4
+*.webm
+*.ico
+
+# Sensitive Credentials & ZK Configs
+.env
+.env.*
+credentials*
+*.pem
+*.key
+*.cert
+secret*
+digest.txt
+server_digest.txt
+zkconfig/
+*_key
+*zkir
+
+# Generated Scripts
+make_commits.ps1
