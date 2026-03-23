@@ -1,0 +1,45 @@
+{
+  "name": "shadow-run",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Shadow Run — Gamified Private Transaction Game on Midnight Network",
+  "scripts": {
+    "compile-shadow-runner": "compact compile contracts/shadow-runner.compact contracts/managed/shadow-runner",
+    "compile-river-crossing": "compact compile contracts/river-crossing.compact contracts/managed/river-crossing",
+    "compile-stone-drop": "compact compile contracts/stone-drop.compact contracts/managed/stone-drop",
+    "deploy-shadow-runner": "tsx src/deploy-shadow-runner.ts",
+    "deploy-river-crossing": "tsx src/deploy-river-crossing.ts",
+    "deploy-stone-drop": "tsx src/deploy-stone-drop.ts",
+    "test-shadow-runner": "tsx src/test-shadow-runner.ts",
+    "test-river-crossing": "tsx src/test-river-crossing.ts",
+    "test-stone-drop": "tsx src/test-stone-drop.ts",
+    "test-ghost-trail": "tsx src/test-ghost-trail.ts",
+    "test-canopy-split": "tsx src/test-canopy-split.ts",
+    "start-proof-server": "docker run -p 6300:6300 midnightntwrk/proof-server:8.0.0 -- midnight-proof-server -v",
+    "build": "node ./node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@midnight-ntwrk/compact-runtime": "0.15.0",
+    "@midnight-ntwrk/ledger-v8": "8.0.3",
+    "@midnight-ntwrk/midnight-js-contracts": "4.0.1",
+    "@midnight-ntwrk/midnight-js-http-client-proof-provider": "4.0.1",
+    "@midnight-ntwrk/midnight-js-indexer-public-data-provider": "4.0.1",
+    "@midnight-ntwrk/midnight-js-level-private-state-provider": "4.0.1",
+    "@midnight-ntwrk/midnight-js-network-id": "4.0.1",
+    "@midnight-ntwrk/midnight-js-node-zk-config-provider": "4.0.1",
+    "@midnight-ntwrk/midnight-js-types": "4.0.1",
+    "@midnight-ntwrk/wallet-sdk-address-format": "3.1.0",
+    "@midnight-ntwrk/wallet-sdk-dust-wallet": "3.0.0",
+    "@midnight-ntwrk/wallet-sdk-facade": "3.0.0",
+    "@midnight-ntwrk/wallet-sdk-hd": "3.0.1",
+    "@midnight-ntwrk/wallet-sdk-shielded": "2.1.0",
+    "@midnight-ntwrk/wallet-sdk-unshielded-wallet": "2.1.0",
+    "ws": "^8.19.0"
+  }
+}

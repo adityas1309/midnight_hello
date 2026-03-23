@@ -1,0 +1,476 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Implementation Status · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 6.1.7">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="architecture.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Overview
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="implementation-status.html">
+            
+                <a href="implementation-status.html">
+            
+                    
+                    Implementation Status
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="architecture.html">
+            
+                <a href="architecture.html">
+            
+                    
+                    System Architecture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="missions.html">
+            
+                <a href="missions.html">
+            
+                    
+                    Mission Systems & Primitives
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="contracts.html">
+            
+                <a href="contracts.html">
+            
+                    
+                    Smart Contracts Layer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="technical-qna.html">
+            
+                <a href="technical-qna.html">
+            
+                    
+                    Technical Q&A
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="market.html">
+            
+                <a href="market.html">
+            
+                    
+                    Market & Ecosystem Context
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Implementation Status</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="implementation-status">Implementation Status</h1>
+<p>This page is the code-accurate implementation snapshot for the current repository. It is intentionally conservative: it separates what is fully working from what is partially implemented or still unstable.</p>
+<h2 id="current-scope">Current Scope</h2>
+<p>Shadow Run currently consists of:</p>
+<ul>
+<li>Three Compact contracts:<ul>
+<li><code>shadow-runner</code></li>
+<li><code>river-crossing</code></li>
+<li><code>stone-drop</code></li>
+</ul>
+</li>
+<li>A Node/Express + Socket.IO coordination server</li>
+<li>A React + Three.js browser client</li>
+<li>Midnight SDK-based deploy and integration test scripts</li>
+</ul>
+<h2 id="network-and-deployment">Network and Deployment</h2>
+<p>The project is currently configured for Midnight local <code>undeployed</code> by default.</p>
+<p>Deployed contract artifacts present in the repository:</p>
+<ul>
+<li><code>shadow-runner</code>: <code>12b2804a3e4b56fca64c89886c28d9086c7a734ed4370fe5d8e5064b4cfa8a56</code></li>
+<li><code>river-crossing</code>: <code>e5f42dadc593d013354011452ec4dd35b76649d0a4c344f381f52b10103c8c6a</code></li>
+<li><code>stone-drop</code>: <code>59341aa430f5a16cdce8a7d94276f834ea259b2554e3bc2c6512e540e866541b</code></li>
+</ul>
+<h2 id="what-is-working-reliably">What Is Working Reliably</h2>
+<h3 id="1-shadow-runner-registration-and-score-writes">1. Shadow Runner registration and score writes</h3>
+<p><code>shadow-runner</code> supports:</p>
+<ul>
+<li><code>registerRunner</code></li>
+<li><code>completeMission</code></li>
+<li><code>resetWeeklyScore</code></li>
+</ul>
+<p>The current implementation reliably demonstrates registration and mission-score recording.</p>
+<h3 id="2-ghost-trail">2. Ghost Trail</h3>
+<p>Ghost Trail is implemented as:</p>
+<ol>
+<li>A real shielded transfer</li>
+<li>A <code>shadow-runner.completeMission("ghost_trail", ...)</code> score write</li>
+</ol>
+<p>The repository test history shows successful transfer and score-recording runs.</p>
+<h3 id="3-canopy-split">3. Canopy Split</h3>
+<p>Canopy Split is implemented as:</p>
+<ol>
+<li>A real multi-output shielded transfer</li>
+<li>A <code>shadow-runner.completeMission("canopy_split", ...)</code> score write</li>
+</ol>
+<p>The repository test history shows successful transfer and score-recording runs.</p>
+<h3 id="4-river-crossing-offer-lock">4. River Crossing offer lock</h3>
+<p><code>river-crossing.createOffer(...)</code> successfully demonstrates:</p>
+<ul>
+<li>witness-backed shielded coin intake</li>
+<li>contract-side coin locking</li>
+<li>public offer metadata update</li>
+</ul>
+<h3 id="5-stone-drop-deposit">5. Stone Drop deposit</h3>
+<p><code>stone-drop.deposit(...)</code> successfully demonstrates:</p>
+<ul>
+<li>witness-backed shielded coin intake</li>
+<li>insertion of a commitment into the on-chain Merkle tree</li>
+<li>incrementing deposit counters</li>
+</ul>
+<h2 id="what-is-implemented-but-not-yet-stable">What Is Implemented but Not Yet Stable</h2>
+<h3 id="1-river-crossing-full-continuation-flow">1. River Crossing full continuation flow</h3>
+<p>The contract includes:</p>
+<ul>
+<li><code>createOffer</code></li>
+<li><code>acceptOffer</code></li>
+<li><code>cancelOffer</code></li>
+</ul>
+<p>But test evidence currently supports stable success for <code>createOffer</code> only. Follow-up calls such as <code>cancelOffer</code> still fail with contract-local-state and Merkle replay issues.</p>
+<h3 id="2-stone-drop-claim--revoke-flow">2. Stone Drop claim / revoke flow</h3>
+<p>The contract includes:</p>
+<ul>
+<li><code>deposit</code></li>
+<li><code>claim</code></li>
+<li><code>revoke</code></li>
+</ul>
+<p><code>deposit</code> is working. <code>claim</code> and related continuation paths still show repeated failures in the integration log.</p>
+<h3 id="3-browser-witness-heavy-contract-flows">3. Browser witness-heavy contract flows</h3>
+<p>The browser contains service functions for:</p>
+<ul>
+<li><code>createSwapOffer</code></li>
+<li><code>acceptSwapOffer</code></li>
+<li><code>cancelSwapOffer</code></li>
+<li><code>depositStoneDrop</code></li>
+<li><code>claimStoneDrop</code></li>
+<li><code>revokeStoneDrop</code></li>
+</ul>
+<p>The service layer is implemented, but continuation-heavy flows are still constrained by in-memory private state and witness/local-state replay complexity.</p>
+<h2 id="important-demo-caveat">Important Demo Caveat</h2>
+<p>Ghost Trail and Canopy Split currently submit the transfer leg through the backend server, not directly from the connected Lace wallet.</p>
+<p>In the current UI:</p>
+<ul>
+<li>the recipient addresses come from the user</li>
+<li>the server endpoint <code>/api/midnight/shielded-transfer</code> creates and submits the transfer</li>
+<li>the backend uses a fixed test wallet seed</li>
+<li>score recording still goes through the browser wallet contract flow</li>
+</ul>
+<p>This is acceptable for a demo, but it should be described accurately. It is not yet a pure user-wallet-only end-to-end flow.</p>
+<h2 id="multiplayer-status">Multiplayer Status</h2>
+<p>The multiplayer layer is implemented and working as a coordination and presentation system:</p>
+<ul>
+<li>player join/leave</li>
+<li>movement sync</li>
+<li>narrative events</li>
+<li>swap matchmaking</li>
+<li>swap completion notifications</li>
+<li>live leaderboard updates</li>
+</ul>
+<p>This multiplayer state is server-driven and ephemeral. It should not be described as fully trustless on-chain game state.</p>
+<h2 id="architecture-reality-check">Architecture Reality Check</h2>
+<p>The repository docs describe a strong vision for privacy-first gameplay on Midnight. The current implementation already proves several real Midnight primitives, but some claims should be scoped carefully:</p>
+<ul>
+<li>Real today:<ul>
+<li>Compact contracts</li>
+<li>contract deployment</li>
+<li>score writes</li>
+<li>private transfers</li>
+<li>multi-output private transfers</li>
+<li>escrow/deposit primitives</li>
+</ul>
+</li>
+<li>Not yet stable end-to-end:<ul>
+<li>continuation spending of prior contract-owned outputs</li>
+<li>fully user-wallet-owned Ghost Trail / Canopy Split transfer execution</li>
+<li>multi-user trustless leaderboard semantics in one shared <code>shadow-runner</code> instance</li>
+</ul>
+</li>
+</ul>
+<h2 id="best-one-line-summary">Best One-Line Summary</h2>
+<p>Shadow Run is a real Midnight-powered gameplay demo with working private transfer and contract-deposit primitives, plus a polished multiplayer UI, while the most complex witness-driven continuation flows are implemented but still being hardened.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Overview">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="architecture.html" class="navigation navigation-next " aria-label="Next page: System Architecture">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Implementation Status","level":"1.2","depth":1,"next":{"title":"System Architecture","level":"1.3","depth":1,"path":"architecture.md","ref":"architecture.md","articles":[]},"previous":{"title":"Overview","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"implementation-status.md","mtime":"2026-03-26T13:27:58.185Z","type":"markdown"},"gitbook":{"version":"6.1.7","time":"2026-03-26T13:29:22.483Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

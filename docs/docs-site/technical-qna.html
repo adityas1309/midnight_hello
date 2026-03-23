@@ -1,0 +1,846 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Technical Q&A · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 6.1.7">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="market.html" />
+    
+    
+    <link rel="prev" href="contracts.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Overview
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="implementation-status.html">
+            
+                <a href="implementation-status.html">
+            
+                    
+                    Implementation Status
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="architecture.html">
+            
+                <a href="architecture.html">
+            
+                    
+                    System Architecture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="missions.html">
+            
+                <a href="missions.html">
+            
+                    
+                    Mission Systems & Primitives
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="contracts.html">
+            
+                <a href="contracts.html">
+            
+                    
+                    Smart Contracts Layer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="technical-qna.html">
+            
+                <a href="technical-qna.html">
+            
+                    
+                    Technical Q&A
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="market.html">
+            
+                <a href="market.html">
+            
+                    
+                    Market & Ecosystem Context
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Technical Q&A</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="technical-qa">Technical Q&amp;A</h1>
+<p>This Q&amp;A is based on the current code in this repository, not on the aspirational docs alone. It is meant to prepare for technical review of the implemented Shadow Run / Midnight demo.</p>
+<h2 id="1-what-is-actually-implemented-on-chain">1. What is actually implemented on-chain?</h2>
+<p><strong>Answer:</strong> Three Compact contracts are implemented and deployed on the local <code>undeployed</code> Midnight network:</p>
+<ul>
+<li><code>shadow-runner.compact</code>: runner registration, score updates, weekly score reset.</li>
+<li><code>river-crossing.compact</code>: maker locks funds, taker accepts, contract supports cancel.</li>
+<li><code>stone-drop.compact</code>: deposit into a Merkle tree, claim, and revoke with nullifier protection.</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/shadow-runner.compact</code></li>
+<li><code>contracts/river-crossing.compact</code></li>
+<li><code>contracts/stone-drop.compact</code></li>
+<li><code>deployments/shadow-runner.json</code></li>
+<li><code>deployments/river-crossing.json</code></li>
+<li><code>deployments/stone-drop.json</code></li>
+</ul>
+<h2 id="2-which-contracts-are-currently-deployed">2. Which contracts are currently deployed?</h2>
+<p><strong>Answer:</strong> The repo has deployment artifacts for all three contracts on the local <code>undeployed</code> network:</p>
+<ul>
+<li><code>shadow-runner</code>: <code>12b2804a3e4b56fca64c89886c28d9086c7a734ed4370fe5d8e5064b4cfa8a56</code></li>
+<li><code>river-crossing</code>: <code>e5f42dadc593d013354011452ec4dd35b76649d0a4c344f381f52b10103c8c6a</code></li>
+<li><code>stone-drop</code>: <code>59341aa430f5a16cdce8a7d94276f834ea259b2554e3bc2c6512e540e866541b</code></li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>deployments/shadow-runner.json</code></li>
+<li><code>deployments/river-crossing.json</code></li>
+<li><code>deployments/stone-drop.json</code></li>
+</ul>
+<h2 id="3-is-this-using-midnight-primitives-directly-or-simulating-them">3. Is this using Midnight primitives directly or simulating them?</h2>
+<p><strong>Answer:</strong> It uses Midnight SDK packages directly. The root package depends on Midnight contract/runtime/provider/wallet SDK packages, and the deploy/test scripts use those packages to deploy contracts, generate proofs, query indexer state, and submit transactions.</p>
+<p>Reference:</p>
+<ul>
+<li><code>package.json</code></li>
+<li><code>src/utils.ts</code></li>
+</ul>
+<h2 id="4-what-network-is-the-project-configured-for">4. What network is the project configured for?</h2>
+<p><strong>Answer:</strong> The backend/test harness is hardcoded to <code>undeployed</code>, labeled as <code>Midnight Local (Undeployed)</code>. The UI also defaults to <code>undeployed</code> unless overridden by <code>VITE_NETWORK_ID</code>.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/utils.ts</code></li>
+<li><code>ui/src/services/contracts.ts</code></li>
+</ul>
+<h2 id="5-what-external-midnight-services-does-it-depend-on">5. What external Midnight services does it depend on?</h2>
+<p><strong>Answer:</strong> The project expects:</p>
+<ul>
+<li>Indexer HTTP: <code>http://127.0.0.1:8088/api/v4/graphql</code> in backend scripts.</li>
+<li>Indexer WS: <code>ws://127.0.0.1:8088/api/v4/graphql/ws</code> in backend scripts.</li>
+<li>Node: <code>http://127.0.0.1:9944</code></li>
+<li>Proof server: <code>http://127.0.0.1:6300</code></li>
+</ul>
+<p>The UI has similar defaults, but currently points to <code>api/v3/graphql</code> unless env vars override it.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/utils.ts</code></li>
+<li><code>ui/src/services/contracts.ts</code></li>
+</ul>
+<h2 id="6-how-does-wallet-integration-work-in-the-backend-scripts">6. How does wallet integration work in the backend scripts?</h2>
+<p><strong>Answer:</strong> The scripts derive keys from a fixed test seed, build a shielded wallet, unshielded wallet, and dust wallet, then wrap them with <code>WalletFacade</code>. They also manage wallet sync, DUST registration, and funding from a hardcoded genesis sender when needed.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/utils.ts</code></li>
+</ul>
+<h2 id="7-how-does-shadow-runner-work-at-contract-level">7. How does <code>shadow-runner</code> work at contract level?</h2>
+<p><strong>Answer:</strong> <code>shadow-runner</code> is a public ledger state contract. It stores:</p>
+<ul>
+<li><code>trailScore</code></li>
+<li><code>weeklyScore</code></li>
+<li><code>runnerName</code></li>
+<li><code>totalMissions</code></li>
+<li><code>currentRank</code></li>
+<li><code>isRegistered</code></li>
+<li><code>lastMissionType</code></li>
+<li><code>adminHash</code></li>
+</ul>
+<p>It exposes:</p>
+<ul>
+<li><code>registerRunner(name, initialRank, adminSecret)</code></li>
+<li><code>completeMission(missionType, newRank, points, newTrailScore, newWeeklyScore)</code></li>
+<li><code>resetWeeklyScore(adminSecret)</code></li>
+</ul>
+<p>Important caveat: <code>points</code> is accepted as an argument but is not used to derive the stored scores. The client computes <code>newTrailScore</code> and <code>newWeeklyScore</code> and passes them in.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/shadow-runner.compact</code></li>
+</ul>
+<h2 id="8-does-shadow-runner-validate-mission-logic-on-chain">8. Does <code>shadow-runner</code> validate mission logic on-chain?</h2>
+<p><strong>Answer:</strong> Not deeply. It records mission completion metadata and scores, but the contract does not independently verify a transfer, route, timestamp, or amount bounds. The client decides the new totals and rank, then submits them.</p>
+<p>This is one of the biggest differences between the narrative docs and the implemented contract.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/shadow-runner.compact</code></li>
+<li><code>src/test-shadow-runner.ts</code></li>
+</ul>
+<h2 id="9-how-is-rank-determined">9. How is rank determined?</h2>
+<p><strong>Answer:</strong> Rank is a UI/client concept. The UI computes rank from thresholds:</p>
+<ul>
+<li><code>0-999</code>: Seedling</li>
+<li><code>1000-4999</code>: Tracker</li>
+<li><code>5000-14999</code>: Pathfinder</li>
+<li><code>15000-39999</code>: Forest Ghost</li>
+<li><code>40000+</code>: Shadow Runner</li>
+</ul>
+<p>The chosen rank string is then passed into <code>completeMission</code> and stored on-chain.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contracts.ts</code></li>
+<li><code>contracts/shadow-runner.compact</code></li>
+</ul>
+<h2 id="10-is-runner-registration-tied-cryptographically-to-a-wallet-identity">10. Is runner registration tied cryptographically to a wallet identity?</h2>
+<p><strong>Answer:</strong> Not strongly. Registration stores a runner name, rank, and admin secret hash in public ledger state. It does not store or verify a wallet address mapping inside the contract.</p>
+<p>The UI later decides whether fetched contract state belongs to the current user by comparing the locally stored runner name with the contract runner name.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/shadow-runner.compact</code></li>
+<li><code>ui/src/services/gameState.ts</code></li>
+</ul>
+<h2 id="11-can-multiple-users-each-have-independent-runner-state">11. Can multiple users each have independent runner state?</h2>
+<p><strong>Answer:</strong> Not with the current <code>shadow-runner</code> storage model as written. The contract exports single ledger fields, not a map keyed by wallet or runner id. That means the contract instance behaves like one shared runner record, not a per-user registry.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/shadow-runner.compact</code></li>
+</ul>
+<h2 id="12-how-does-river-crossing-work-at-contract-level">12. How does <code>river-crossing</code> work at contract level?</h2>
+<p><strong>Answer:</strong> <code>river-crossing</code> is a shielded escrow/swap primitive.</p>
+<ul>
+<li><code>createOffer</code> calls <code>receiveShielded</code> to lock the maker coin into the contract.</li>
+<li><code>acceptOffer</code> calls <code>receiveShielded</code> for taker funds, then:<ul>
+<li><code>sendShielded</code> releases maker locked coin to taker.</li>
+<li><code>sendImmediateShielded</code> releases taker coin to maker.</li>
+</ul>
+</li>
+<li><code>cancelOffer</code> returns the locked maker coin via <code>sendShielded</code>.</li>
+</ul>
+<p>Public ledger fields track offer metadata and swap completion counters.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/river-crossing.compact</code></li>
+</ul>
+<h2 id="13-does-river-crossing-use-witness-functions">13. Does <code>river-crossing</code> use witness functions?</h2>
+<p><strong>Answer:</strong> Yes. It depends on witness callbacks for coin info, pubkeys, and return values:</p>
+<ul>
+<li><code>get_offer_coin</code></li>
+<li><code>get_taker_coin</code></li>
+<li><code>get_maker_locked_coin</code></li>
+<li><code>get_maker_pubkey</code></li>
+<li><code>get_taker_pubkey</code></li>
+<li><code>get_maker_receive_value</code></li>
+<li><code>get_taker_receive_value</code></li>
+<li><code>get_cancel_coin</code></li>
+<li><code>get_cancel_pubkey</code></li>
+<li><code>get_cancel_value</code></li>
+</ul>
+<p>Those witnesses are wired in TypeScript during deployment/tests.</p>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/river-crossing.compact</code></li>
+<li><code>src/test-river-crossing.ts</code></li>
+<li><code>src/deploy-river-crossing.ts</code></li>
+</ul>
+<h2 id="14-is-river-crossing-fully-working-end-to-end-right-now">14. Is <code>river-crossing</code> fully working end-to-end right now?</h2>
+<p><strong>Answer:</strong> Partially.</p>
+<ul>
+<li><code>createOffer</code> has repeated PASS results in <code>test-results/local-test-log.txt</code>.</li>
+<li><code>cancelOffer</code> repeatedly fails after that, with several different local-state / Merkle-tree / submission errors.</li>
+<li>The repo includes UI flows for create and accept, but the test evidence does not support claiming stable end-to-end success for the full swap lifecycle.</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>src/test-river-crossing.ts</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+<li><code>ui/src/components/RiverMarket.tsx</code></li>
+</ul>
+<h2 id="15-what-is-the-practical-state-of-swap-acceptance-in-the-ui">15. What is the practical state of swap acceptance in the UI?</h2>
+<p><strong>Answer:</strong> The UI exposes <code>acceptSwapOffer</code>, but the proof/witness-heavy path is much less proven than <code>createOffer</code>. The multiplayer server coordinates a match, then the browser tries to submit the contract call through <code>submitBrowserContractCall</code>.</p>
+<p>Because the tested backend path already struggles on continuation/local-state handling for similar flows, this should be described as implemented but not yet fully production-stable.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/components/RiverMarket.tsx</code></li>
+<li><code>ui/src/services/contractService.ts</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+</ul>
+<h2 id="16-how-does-stone-drop-work-at-contract-level">16. How does <code>stone-drop</code> work at contract level?</h2>
+<p><strong>Answer:</strong> <code>stone-drop</code> combines:</p>
+<ul>
+<li><code>HistoricMerkleTree&lt;4, Bytes&lt;32&gt;&gt;</code></li>
+<li><code>Set&lt;Bytes&lt;32&gt;&gt;</code> for nullifiers</li>
+<li>counters for deposits, claims, and revokes</li>
+</ul>
+<p><code>deposit</code>:</p>
+<ul>
+<li>locks a shielded coin with <code>receiveShielded</code></li>
+<li>computes <code>persistentCommit(secret, randomness)</code></li>
+<li>inserts commitment into the tree</li>
+</ul>
+<p><code>claim</code>:</p>
+<ul>
+<li>recomputes the commitment</li>
+<li>verifies a Merkle root/path</li>
+<li>computes a nullifier from <code>secret</code></li>
+<li>rejects reuse</li>
+<li>sends the locked asset to recipient with <code>sendShielded</code></li>
+</ul>
+<p><code>revoke</code>:</p>
+<ul>
+<li>follows the same proof/nullifier pattern</li>
+<li>returns the locked asset instead</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/stone-drop.compact</code></li>
+</ul>
+<h2 id="17-is-stone-drop-fully-working-end-to-end-right-now">17. Is <code>stone-drop</code> fully working end-to-end right now?</h2>
+<p><strong>Answer:</strong> Also partially.</p>
+<ul>
+<li><code>deposit</code> has repeated PASS results in the test log.</li>
+<li><code>claim</code> repeatedly fails afterward with local-state replay, sparse Merkle index, insufficient funds, unreachable, and submission errors.</li>
+<li><code>revoke</code> exists in the contract and browser service, but the current UI flow only exposes deposit, not claim/revoke.</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>src/test-stone-drop.ts</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+<li><code>ui/src/components/MissionExecution.tsx</code></li>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="18-are-ghost-trail-and-canopy-split-separate-contracts">18. Are Ghost Trail and Canopy Split separate contracts?</h2>
+<p><strong>Answer:</strong> No. They are mission wrappers built from:</p>
+<ul>
+<li>a real transfer flow</li>
+<li>then a <code>shadow-runner.completeMission(...)</code> score write</li>
+</ul>
+<p>They do not have dedicated Compact contracts.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/test-ghost-trail.ts</code></li>
+<li><code>src/test-canopy-split.ts</code></li>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="19-are-ghost-trail-and-canopy-split-working">19. Are Ghost Trail and Canopy Split working?</h2>
+<p><strong>Answer:</strong> Yes, with a very important caveat.</p>
+<p>The test log shows PASS results for:</p>
+<ul>
+<li><code>ghost-trail.shielded-transfer</code></li>
+<li><code>ghost-trail.completeMission</code></li>
+<li><code>canopy-split.multi-output-send</code></li>
+<li><code>canopy-split.completeMission</code></li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>src/test-ghost-trail.ts</code></li>
+<li><code>src/test-canopy-split.ts</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+</ul>
+<h2 id="20-what-is-the-caveat-on-ghost-trail-and-canopy-split-in-the-browser-app">20. What is the caveat on Ghost Trail and Canopy Split in the browser app?</h2>
+<p><strong>Answer:</strong> In the UI, the transfer step is not submitted directly from the connected Lace wallet. It is sent to the backend endpoint <code>/api/midnight/shielded-transfer</code>, and the server performs the transfer using <code>createWallet(TEST_SEED)</code>.</p>
+<p>So in the current implementation:</p>
+<ul>
+<li>recipient addresses come from the UI</li>
+<li>the actual transfer signer/funder is the backend test wallet</li>
+<li>the score recording still uses the browser wallet contract flow</li>
+</ul>
+<p>That is fine for a demo, but it is not the same as a user-owned end-to-end wallet flow.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contractService.ts</code></li>
+<li><code>server/index.ts</code></li>
+<li><code>src/utils.ts</code></li>
+</ul>
+<h2 id="21-how-does-the-backend-transfer-endpoint-work">21. How does the backend transfer endpoint work?</h2>
+<p><strong>Answer:</strong> <code>POST /api/midnight/shielded-transfer</code>:</p>
+<ul>
+<li>validates recipient shielded addresses and amounts</li>
+<li>creates a wallet from <code>TEST_SEED</code></li>
+<li>ensures the server wallet has enough shielded balance</li>
+<li>builds a shielded transfer transaction with multiple outputs if needed</li>
+<li>finalizes and submits it</li>
+<li>returns <code>{ txId, transferCount }</code></li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>server/index.ts</code></li>
+</ul>
+<h2 id="22-what-multiplayer-features-are-implemented">22. What multiplayer features are implemented?</h2>
+<p><strong>Answer:</strong> The server supports:</p>
+<ul>
+<li>player join/leave</li>
+<li>player movement sync</li>
+<li>leaderboard updates</li>
+<li>narrative events</li>
+<li>P2P swap offer creation</li>
+<li>P2P swap matching</li>
+<li>swap completion notifications</li>
+<li>periodic CHAIN alert state</li>
+<li>swap history persistence to <code>server/data/swaps.json</code></li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>server/index.ts</code></li>
+<li><code>ui/src/services/multiplayer.ts</code></li>
+</ul>
+<h2 id="23-is-the-multiplayer-server-the-source-of-truth-for-swaps">23. Is the multiplayer server the source of truth for swaps?</h2>
+<p><strong>Answer:</strong> It is the source of truth for lobby/matchmaking state, not for the asset transfer itself. The server tracks offers and match timeouts in memory and persists completed swap history, but the actual on-chain swap is still supposed to be performed by the Midnight contract transaction.</p>
+<p>Reference:</p>
+<ul>
+<li><code>server/index.ts</code></li>
+<li><code>ui/src/components/RiverMarket.tsx</code></li>
+</ul>
+<h2 id="24-how-does-the-browser-contract-adapter-work">24. How does the browser contract adapter work?</h2>
+<p><strong>Answer:</strong> The browser layer uses <code>submitCallTxAsync</code> from <code>@midnight-ntwrk/midnight-js-contracts</code>, a browser provider adapter around Lace, and an in-memory private state provider.</p>
+<p>Flow:</p>
+<ol>
+<li>Connect to Lace.</li>
+<li>Create browser providers.</li>
+<li>Load compiled contract from <code>contracts/managed/...</code>.</li>
+<li>Initialize missing private state.</li>
+<li>Call <code>submitCallTxAsync(...)</code>.</li>
+<li>Poll the public data provider for finalization.</li>
+<li>On success, persist the returned next private state in memory.</li>
+</ol>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="25-how-is-browser-private-state-stored">25. How is browser private state stored?</h2>
+<p><strong>Answer:</strong> In memory only. The browser contract service creates an in-memory <code>PrivateStateProvider</code>, scoped by contract address and <code>privateStateId</code>.</p>
+<p>That means browser private state does not survive reloads. This is especially relevant for witness-heavy continuation flows such as <code>river-crossing.cancelOffer</code> and <code>stone-drop.claim/revoke</code>.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="26-why-do-some-complex-flows-fail">26. Why do some complex flows fail?</h2>
+<p><strong>Answer:</strong> The test log points to a combination of issues:</p>
+<ul>
+<li>continuation/local-state replay problems</li>
+<li>sparse Merkle tree index errors</li>
+<li>rehash / prior output replay errors</li>
+<li>insufficient funds during follow-up proofs</li>
+<li>witness serialization mismatches in earlier iterations</li>
+</ul>
+<p>This is consistent with the hardest part of Midnight flows: not initial deposits, but correct replay of contract-owned outputs and local/private state across subsequent witness-backed calls.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/test-river-crossing.ts</code></li>
+<li><code>src/test-stone-drop.ts</code></li>
+<li><code>src/utils.ts</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+</ul>
+<h2 id="27-how-are-compiled-contracts-loaded">27. How are compiled contracts loaded?</h2>
+<p><strong>Answer:</strong> The backend imports compiled contract modules from <code>contracts/managed/{contract}/contract/index.js</code>. The browser uses <code>import.meta.glob</code> to bundle and load those same compiled artifacts.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/utils.ts</code></li>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="28-how-are-contracts-deployed">28. How are contracts deployed?</h2>
+<p><strong>Answer:</strong> Each deploy script:</p>
+<ol>
+<li>Loads the compiled contract.</li>
+<li>Creates a wallet from <code>TEST_SEED</code>.</li>
+<li>Waits for sync and unshielded funds.</li>
+<li>Registers for DUST generation.</li>
+<li>Calls <code>deployContract(...)</code>.</li>
+<li>Writes a deployment JSON file under <code>deployments/</code>.</li>
+</ol>
+<p>Witness-heavy contracts use stub witness implementations during deployment because witnesses are only needed at execution time.</p>
+<p>Reference:</p>
+<ul>
+<li><code>src/deploy-shadow-runner.ts</code></li>
+<li><code>src/deploy-river-crossing.ts</code></li>
+<li><code>src/deploy-stone-drop.ts</code></li>
+</ul>
+<h2 id="29-how-do-state-reads-work-in-the-ui">29. How do state reads work in the UI?</h2>
+<p><strong>Answer:</strong> The UI reads public contract state from the Midnight indexer via GraphQL and derives frontend models from that data:</p>
+<ul>
+<li>runner state from <code>shadow-runner</code></li>
+<li>market state from <code>river-crossing</code></li>
+<li>drop counters from <code>stone-drop</code></li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/gameState.ts</code></li>
+</ul>
+<h2 id="30-is-the-leaderboard-truly-multi-user-and-on-chain">30. Is the leaderboard truly multi-user and on-chain?</h2>
+<p><strong>Answer:</strong> The live leaderboard shown in multiplayer is primarily a server/socket-driven ephemeral leaderboard based on <code>score_update</code> events. The on-chain <code>shadow-runner</code> contract itself, as currently written, does not support per-player rows inside one contract instance.</p>
+<p>So the answer is:</p>
+<ul>
+<li>there is a real on-chain score field</li>
+<li>but the multiplayer leaderboard is not a trustless multi-user on-chain leaderboard yet</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>server/index.ts</code></li>
+<li><code>ui/src/services/multiplayer.ts</code></li>
+<li><code>contracts/shadow-runner.compact</code></li>
+</ul>
+<h2 id="31-does-the-ui-support-runner-registration">31. Does the UI support runner registration?</h2>
+<p><strong>Answer:</strong> Yes. <code>RegistrationScreen</code> calls <code>contractService.registerRunner(...)</code>, and on success stores the runner name locally.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/components/RegistrationScreen.tsx</code></li>
+<li><code>ui/src/services/contractService.ts</code></li>
+</ul>
+<h2 id="32-does-the-ui-support-stone-drop-claim-and-revoke">32. Does the UI support Stone Drop claim and revoke?</h2>
+<p><strong>Answer:</strong> Service functions exist for both <code>claimStoneDrop</code> and <code>revokeStoneDrop</code>, but the mission execution UI currently exposes deposit only. It stores the generated secret and randomness in local storage after deposit, but there is no complete in-app claim/revoke screen wired from that flow.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contractService.ts</code></li>
+<li><code>ui/src/components/MissionExecution.tsx</code></li>
+<li><code>ui/src/services/storage.ts</code></li>
+</ul>
+<h2 id="33-does-the-ui-support-river-crossing-cancel">33. Does the UI support River Crossing cancel?</h2>
+<p><strong>Answer:</strong> There is a service function for <code>cancelSwapOffer</code>, but the current <code>RiverMarket</code> component does not expose a cancel action in the interface.</p>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/contractService.ts</code></li>
+<li><code>ui/src/components/RiverMarket.tsx</code></li>
+</ul>
+<h2 id="34-is-there-any-persistence-beyond-the-chain">34. Is there any persistence beyond the chain?</h2>
+<p><strong>Answer:</strong> Yes:</p>
+<ul>
+<li>Browser local storage:<ul>
+<li>runner name</li>
+<li>stone drop secrets/randomness records</li>
+<li>tx history</li>
+<li>wallet address</li>
+</ul>
+</li>
+<li>Server filesystem:<ul>
+<li>completed swap history JSON</li>
+</ul>
+</li>
+<li>Backend/private Midnight state:<ul>
+<li>LevelDB private state store for backend scripts</li>
+</ul>
+</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>ui/src/services/storage.ts</code></li>
+<li><code>server/index.ts</code></li>
+<li><code>src/utils.ts</code></li>
+</ul>
+<h2 id="35-what-is-the-cleanest-way-to-describe-the-current-maturity-of-the-demo">35. What is the cleanest way to describe the current maturity of the demo?</h2>
+<p><strong>Answer:</strong> A technically accurate summary is:</p>
+<ul>
+<li><code>shadow-runner</code> registration and mission score writes are working.</li>
+<li>Ghost Trail and Canopy Split demo flows are working, but browser transfers currently route through a backend test wallet.</li>
+<li><code>river-crossing</code> and <code>stone-drop</code> successfully demonstrate deposit/offer-lock behavior on-chain.</li>
+<li>Continuation flows for witness-heavy contract-owned outputs (<code>cancel</code>, <code>claim</code>, likely <code>accept</code>) are implemented but not yet stable end-to-end.</li>
+<li>Multiplayer coordination and presentation are working, but not all gameplay state is trustless on-chain state.</li>
+</ul>
+<h2 id="36-if-asked-what-is-the-strongest-proof-that-this-is-real-and-not-mocked-what-should-we-say">36. If asked “what is the strongest proof that this is real and not mocked?”, what should we say?</h2>
+<p><strong>Answer:</strong> The strongest evidence in the repo is:</p>
+<ul>
+<li>real Compact contracts</li>
+<li>real deployment artifacts</li>
+<li>Midnight SDK-backed deploy/test scripts</li>
+<li>repeated PASS logs for:<ul>
+<li>runner registration / mission score writes</li>
+<li>Ghost Trail private transfer</li>
+<li>Canopy Split multi-output private transfer</li>
+<li>Stone Drop deposit</li>
+<li>River Crossing createOffer</li>
+</ul>
+</li>
+</ul>
+<p>What should not be overstated:</p>
+<ul>
+<li>stable end-to-end success for <code>stone-drop.claim</code></li>
+<li>stable end-to-end success for <code>river-crossing.cancelOffer</code></li>
+<li>user-owned direct browser signing for Ghost Trail/Canopy Split transfer legs</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><code>contracts/*.compact</code></li>
+<li><code>deployments/*.json</code></li>
+<li><code>test-results/local-test-log.txt</code></li>
+</ul>
+<h2 id="37-if-asked-what-are-the-biggest-technical-gaps-left-what-should-we-say">37. If asked “what are the biggest technical gaps left?”, what should we say?</h2>
+<p><strong>Answer:</strong> The main gaps are:</p>
+<ol>
+<li>Per-user contract state design for <code>shadow-runner</code>.</li>
+<li>Stable witness/local-state continuation for <code>river-crossing</code> and <code>stone-drop</code>.</li>
+<li>Moving Ghost Trail / Canopy Split transfer signing from backend test wallet to the connected user wallet.</li>
+<li>Persistent browser private state instead of in-memory only.</li>
+<li>Full claim/revoke and cancel UI exposure.</li>
+<li>Stronger contract-side validation rather than trusting client-computed score totals.</li>
+</ol>
+<h2 id="38-if-asked-what-is-the-architecture-in-one-sentence-what-should-we-say">38. If asked “what is the architecture in one sentence?”, what should we say?</h2>
+<p><strong>Answer:</strong> It is a React/Three.js multiplayer game UI with Socket.IO coordination, a Node backend for matchmaking and demo transfer orchestration, and Midnight Compact contracts plus Midnight SDK services for private transaction and proof-backed contract execution.</p>
+<p>Reference:</p>
+<ul>
+<li><code>docs/architecture.md</code></li>
+<li><code>server/index.ts</code></li>
+<li><code>ui/package.json</code></li>
+<li><code>src/utils.ts</code></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="contracts.html" class="navigation navigation-prev " aria-label="Previous page: Smart Contracts Layer">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="market.html" class="navigation navigation-next " aria-label="Next page: Market & Ecosystem Context">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Technical Q&A","level":"1.6","depth":1,"next":{"title":"Market & Ecosystem Context","level":"1.7","depth":1,"path":"market.md","ref":"market.md","articles":[]},"previous":{"title":"Smart Contracts Layer","level":"1.5","depth":1,"path":"contracts.md","ref":"contracts.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"technical-qna.md","mtime":"2026-03-26T13:25:20.376Z","type":"markdown"},"gitbook":{"version":"6.1.7","time":"2026-03-26T13:29:22.483Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
