@@ -1,0 +1,65 @@
+pragma language_version >= 0.21;
+import CompactStandardLibrary;
+
+export ledger tree: HistoricMerkleTree<4, Bytes<32>>;
+export ledger nullifierSet: Set<Bytes<32>>;
+export ledger totalDrops: Counter;
+export ledger totalClaims: Counter;
+export ledger revokedDrops: Counter;
+
+// Witness functions — these are implemented in TypeScript
+// and get coin info from the wallet's actual coin set
+witness get_deposit_coin(): ShieldedCoinInfo;
+witness get_claim_coin(): QualifiedShieldedCoinInfo;
+witness get_claim_recipient(): ZswapCoinPublicKey;
+witness get_claim_value(): Uint<128>;
+
+// Deposit: lock real tNight into the contract via receiveShielded
+export circuit deposit(
+  secret: Bytes<32>,
+  randomness: Bytes<32>
+): [] {
+  const coin = get_deposit_coin();
+  receiveShielded(disclose(coin));
+  const commitment = persistentCommit<Bytes<32>>(secret, randomness);
+  tree.insert(commitment);
+  totalDrops.increment(1);
+}
+
+// Claim: release locked tNight to claimer via sendShielded
+export circuit claim(
+  secret: Bytes<32>,
+  randomness: Bytes<32>,
+  path: MerkleTreePath<4, Bytes<32>>
+): [] {
+  const commitment = persistentCommit<Bytes<32>>(secret, randomness);
+  const digest: MerkleTreeDigest = merkleTreePathRoot<4, Bytes<32>>(path);
+  assert(tree.checkRoot(disclose(digest)), "Invalid proof");
+  const nullifier = persistentHash<Bytes<32>>(secret);
+  assert(!nullifierSet.member(disclose(nullifier)), "Already claimed");
+  nullifierSet.insert(disclose(nullifier));
+  const input = get_claim_coin();
+  const recipient = get_claim_recipient();
+  const value = get_claim_value();
+  sendShielded(disclose(input), left<ZswapCoinPublicKey, ContractAddress>(disclose(recipient)), disclose(value));
+  totalClaims.increment(1);
+}
+
+// Revoke: return locked tNight to depositor via sendShielded
+export circuit revoke(
+  secret: Bytes<32>,
+  randomness: Bytes<32>,
+  path: MerkleTreePath<4, Bytes<32>>
+): [] {
+  const commitment = persistentCommit<Bytes<32>>(secret, randomness);
+  const digest: MerkleTreeDigest = merkleTreePathRoot<4, Bytes<32>>(path);
+  assert(tree.checkRoot(disclose(digest)), "Invalid proof");
+  const nullifier = persistentHash<Bytes<32>>(secret);
+  assert(!nullifierSet.member(disclose(nullifier)), "Already used");
+  nullifierSet.insert(disclose(nullifier));
+  const input = get_claim_coin();
+  const recipient = get_claim_recipient();
+  const value = get_claim_value();
+  sendShielded(disclose(input), left<ZswapCoinPublicKey, ContractAddress>(disclose(recipient)), disclose(value));
+  revokedDrops.increment(1);
+}

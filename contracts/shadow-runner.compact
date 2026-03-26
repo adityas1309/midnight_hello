@@ -1,0 +1,52 @@
+pragma language_version >= 0.21;
+
+import CompactStandardLibrary;
+
+// ShadowRunner Contract — Runner state, trail score, mission completion, rank
+// trailScore + weeklyScore = Uint<64> (client passes new totals)
+// totalMissions = Counter (monotonically increasing)
+// Rank = Opaque<"string"> (client-computed, passed as parameter)
+// adminHash = authorization for weekly reset
+
+export ledger trailScore: Uint<64>;
+export ledger weeklyScore: Uint<64>;
+export ledger runnerName: Opaque<"string">;
+export ledger totalMissions: Counter;
+export ledger currentRank: Opaque<"string">;
+export ledger isRegistered: Uint<1>;
+export ledger lastMissionType: Opaque<"string">;
+export ledger adminHash: Opaque<"string">;
+
+// Register a new runner — client passes name, initial rank, and admin secret hash
+export circuit registerRunner(
+  name: Opaque<"string">,
+  initialRank: Opaque<"string">,
+  adminSecret: Opaque<"string">
+): [] {
+  runnerName = disclose(name);
+  isRegistered = disclose(1);
+  currentRank = disclose(initialRank);
+  adminHash = disclose(adminSecret);
+}
+
+// Complete a mission — store new scores, update rank atomically
+// Client reads current scores from public ledger, adds finalPoints, passes new totals
+export circuit completeMission(
+  missionType: Opaque<"string">,
+  newRank: Opaque<"string">,
+  points: Uint<64>,
+  newTrailScore: Uint<64>,
+  newWeeklyScore: Uint<64>
+): [] {
+  trailScore = disclose(newTrailScore);
+  weeklyScore = disclose(newWeeklyScore);
+  totalMissions.increment(1);
+  lastMissionType = disclose(missionType);
+  currentRank = disclose(newRank);
+}
+
+// Reset weekly score — only authorized runner
+export circuit resetWeeklyScore(adminSecret: Opaque<"string">): [] {
+  assert(adminHash == disclose(adminSecret), "Unauthorized");
+  weeklyScore = disclose(0 as Uint<64>);
+}

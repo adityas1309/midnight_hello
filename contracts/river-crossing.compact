@@ -1,0 +1,78 @@
+pragma language_version >= 0.21;
+import CompactStandardLibrary;
+
+// RiverCrossing Contract — P2P atomic swap with real coin locking
+// Both parties lock tNight, atomic release on acceptOffer
+
+export ledger offerActive: Uint<1>;
+export ledger offeredAmount: Uint<64>;
+export ledger requestedAmount: Uint<64>;
+export ledger offerCreator: Opaque<"string">;
+export ledger swapAcceptor: Opaque<"string">;
+export ledger isMatchComplete: Uint<1>;
+export ledger totalSwapsCompleted: Counter;
+export ledger offeredAsset: Opaque<"string">;
+export ledger wantAsset: Opaque<"string">;
+
+// Witness functions for coin operations
+witness get_offer_coin(): ShieldedCoinInfo;
+witness get_taker_coin(): ShieldedCoinInfo;
+witness get_maker_locked_coin(): QualifiedShieldedCoinInfo;
+witness get_maker_pubkey(): ZswapCoinPublicKey;
+witness get_taker_pubkey(): ZswapCoinPublicKey;
+witness get_maker_receive_value(): Uint<128>;
+witness get_taker_receive_value(): Uint<128>;
+witness get_cancel_coin(): QualifiedShieldedCoinInfo;
+witness get_cancel_pubkey(): ZswapCoinPublicKey;
+witness get_cancel_value(): Uint<128>;
+
+// Create offer: lock maker's tNight into the contract
+export circuit createOffer(
+  amount: Uint<64>,
+  request: Uint<64>,
+  creator: Opaque<"string">,
+  offered: Opaque<"string">,
+  wanted: Opaque<"string">
+): [] {
+  const coin = get_offer_coin();
+  receiveShielded(disclose(coin));
+  offeredAmount = disclose(amount);
+  requestedAmount = disclose(request);
+  offerCreator = disclose(creator);
+  offeredAsset = disclose(offered);
+  wantAsset = disclose(wanted);
+  offerActive = disclose(1);
+  isMatchComplete = disclose(0);
+}
+
+// Accept offer: taker locks coins, both sides receive atomically
+export circuit acceptOffer(
+  acceptor: Opaque<"string">
+): [] {
+  const takerCoin = get_taker_coin();
+  const makerLockedCoin = get_maker_locked_coin();
+  const makerPubKey = get_maker_pubkey();
+  const takerPubKey = get_taker_pubkey();
+  const makerReceiveValue = get_maker_receive_value();
+  const takerReceiveValue = get_taker_receive_value();
+  // Lock taker's coin into contract
+  receiveShielded(disclose(takerCoin));
+  // Release maker's locked coin to taker
+  sendShielded(disclose(makerLockedCoin), left<ZswapCoinPublicKey, ContractAddress>(disclose(takerPubKey)), disclose(takerReceiveValue));
+  // Release taker's just-deposited coin to maker
+  sendImmediateShielded(disclose(takerCoin), left<ZswapCoinPublicKey, ContractAddress>(disclose(makerPubKey)), disclose(makerReceiveValue));
+  swapAcceptor = disclose(acceptor);
+  offerActive = disclose(0);
+  isMatchComplete = disclose(1);
+  totalSwapsCompleted.increment(1);
+}
+
+// Cancel offer: return locked tNight to maker
+export circuit cancelOffer(): [] {
+  const lockedCoin = get_cancel_coin();
+  const makerPubKey = get_cancel_pubkey();
+  const returnValue = get_cancel_value();
+  sendShielded(disclose(lockedCoin), left<ZswapCoinPublicKey, ContractAddress>(disclose(makerPubKey)), disclose(returnValue));
+  offerActive = disclose(0);
+  isMatchComplete = disclose(0);
+}
