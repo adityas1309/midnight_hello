@@ -4,6 +4,11 @@
 
 Players navigate a dynamic world, managing secure transactions, maintaining anonymity, and interacting with specialized smart contracts designed specifically for the Midnight ecosystem.
 
+## 🔗 Resources
+- 📊 **Pitch Deck**: [View Presentation](https://canva.link/op8kdhiodf4b5r6)
+- 🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/CuKbGIMXcSY)
+- 🐦 **X (Twitter)**: [@playmidtrail](https://x.com/playmidtrail)
+
 ## 🌟 Key Features
 
 - **Privacy-First Architecture**: Utilizes Midnight Network's ZK capabilities to keep player interactions and transactions completely shielded.
