@@ -6,7 +6,7 @@ Players navigate a dynamic world, managing secure transactions, maintaining anon
 
 ## 🔗 Resources
 - 📊 **Pitch Deck**: [View Presentation](https://canva.link/op8kdhiodf4b5r6)
-- 🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/CuKbGIMXcSY)
+- 🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/HGMYdTRGQFs?si=mMuqROjj_vtfDjB3)
 - 🐦 **X (Twitter)**: [@playmidtrail](https://x.com/playmidtrail)
 
 ## 🌟 Key Features
